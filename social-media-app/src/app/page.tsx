@@ -1,12 +1,28 @@
 'use client';
 // run in browser
-
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+
+    let timer;
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      timer = setTimeout(() => {
+        router.push('/home');
+      }, 3000);
+    } else {
+      timer = setTimeout(() => {
+        router.push('/login');
+      }, 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [router]);
 
   /*
   useEffect(() => {
@@ -16,14 +32,6 @@ export default function Home() {
   React will run the effect once variable changes
   */
 
-  useEffect(() => {
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-    if (isLoggedIn !== 'true') {
-      router.push('/login');
-    } else {
-      setIsLoading(false);
-    }
-  }, []);
   /*
   When variable empty means, it only run once on mount/refresh (dont watch any future changes)
   */
@@ -33,18 +41,30 @@ export default function Home() {
   2. Then it runs useEffect after the first paint
   3. Needed to add isLoading pages to avoid show content
   */
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p>Loading...</p>
-      </div>
-    );
-  }
+  if (!hasMounted) return null;
 
   return (
-    <div>
-      <h1>Welcome to the Homepage!</h1>
-      {/* You can safely show other content here */}
+    <div className="h-screen flex items-center justify-center">
+      <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500 animate-fade-in">
+        Welcome to the ApBook
+      </h1>
+
+      <style jsx>{`
+        .animate-fade-in {
+          animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 }

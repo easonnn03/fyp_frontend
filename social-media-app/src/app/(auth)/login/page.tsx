@@ -23,9 +23,15 @@ export default function LoginPage() {
             });
 
             const token = res.data.access_token;
-            localStorage.setItem('token', token);
+
+            // Store the token securely in localStorage
+            localStorage.setItem('accessToken', res.data.access_token);
+            localStorage.setItem('refreshToken', res.data.refresh_token);
+
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
             toast.success('🎉 Login successful! Redirecting...');
-            setTimeout(() => router.push('/main'), 1500);
+            setTimeout(() => router.push('/home'), 1500);
         } catch (err: unknown) {
             const axiosError = err as AxiosError<{ message: string }>;
             if (axiosError.request && !axiosError.response) {
@@ -40,7 +46,7 @@ export default function LoginPage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <ToastContainer position="top-center" autoClose={3000} />
+            <ToastContainer position="top-center" autoClose={1000} />
 
             <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-80">
                 <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
@@ -77,13 +83,13 @@ export default function LoginPage() {
                     </button>
                 </div>
 
-                <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+                <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 hover:scale-[1.02]">
                     Login
                 </button>
 
                 <p className="text-sm mt-4 text-center">
                     Don&apos;t have an account?{' '}
-                    <a href="/register" className="text-blue-500">Register</a>
+                    <a href="/register" className="text-blue-500 hover:underline">Register</a>
                 </p>
             </form>
         </div>

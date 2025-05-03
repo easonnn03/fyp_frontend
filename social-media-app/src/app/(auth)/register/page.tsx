@@ -52,7 +52,7 @@ export default function RegisterPage() {
             });
 
             toast.success('🎉 Registration successful! Redirecting to Login Page...');
-            setTimeout(() => router.push('/login'), 2000);
+            setTimeout(() => router.push('/login'), 1500);
 
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
@@ -70,8 +70,8 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <ToastContainer position="top-center" autoClose={3000} />
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
+            <ToastContainer position="top-center" autoClose={1000} />
             <form onSubmit={handleRegister} className="bg-white p-6 rounded shadow-md w-80">
                 <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
 
@@ -162,13 +162,13 @@ export default function RegisterPage() {
                 {/* Error message */}
                 {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
 
-                <button type="submit" className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600">
+                <button type="submit" className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600 hover:scale-[1.02]">
                     Register
                 </button>
 
                 <p className="text-sm mt-4 text-center">
                     Already have an account?{' '}
-                    <a href="/login" className="text-blue-500">Login</a>
+                    <a href="/login" className="text-blue-500 hover:underline">Login</a>
                 </p>
             </form>
         </div>
