@@ -119,7 +119,7 @@ export default function PostCard({
         try {
             await api.post('/posts/comment', {
                 postId,
-                userId,
+                currentUserId,
                 content: newComment.trim(),
             });
             setNewComment('');
