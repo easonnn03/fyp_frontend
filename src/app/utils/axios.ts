@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const api = axios.create({
   baseURL:
-    'http://apbook-sv-e4eah7gsdda6a7cf.southeastasia-01.azurewebsites.net',
+    'https://apbook-sv-e4eah7gsdda6a7cf.southeastasia-01.azurewebsites.net',
 });
 
 api.interceptors.request.use(async (config) => {
@@ -18,7 +18,7 @@ api.interceptors.request.use(async (config) => {
 
       if (exp < now && refreshToken) {
         const res = await axios.post(
-          'http://apbook-sv-e4eah7gsdda6a7cf.southeastasia-01.azurewebsites.net/auth/refresh',
+          'https://apbook-sv-e4eah7gsdda6a7cf.southeastasia-01.azurewebsites.net/auth/refresh',
           {
             refresh_token: refreshToken,
           }

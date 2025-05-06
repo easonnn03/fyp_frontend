@@ -17,7 +17,7 @@ export default function LoginPage() {
         e.preventDefault();
 
         try {
-            const res = await axios.post('http://apbook-sv-e4eah7gsdda6a7cf.southeastasia-01.azurewebsites.net/auth/login', {
+            const res = await axios.post('https://apbook-sv-e4eah7gsdda6a7cf.southeastasia-01.azurewebsites.net/auth/login', {
                 email,
                 password,
             });
