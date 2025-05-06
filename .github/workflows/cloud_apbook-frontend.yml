@@ -29,8 +29,8 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      - name: Check tarball content
-        run: tar -tzf node_modules.tar.gz | grep next
+      - name: Show files to check for node_modules.tar.gz
+        run: ls -la && ls -la node_modules && ls -la node_modules/.bin
 
       - name: Zip artifact for deployment
         run: zip -r release.zip .next public node_modules package.json package-lock.json
