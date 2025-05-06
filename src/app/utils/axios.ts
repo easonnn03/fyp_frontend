@@ -3,7 +3,8 @@ import { jwtDecode } from 'jwt-decode';
 import { toast } from 'react-toastify';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL:
+    'http://apbook-sv-e4eah7gsdda6a7cf.southeastasia-01.azurewebsites.net',
 });
 
 api.interceptors.request.use(async (config) => {
@@ -16,9 +17,12 @@ api.interceptors.request.use(async (config) => {
       const now = Date.now() / 1000;
 
       if (exp < now && refreshToken) {
-        const res = await axios.post('http://localhost:3001/auth/refresh', {
-          refresh_token: refreshToken,
-        });
+        const res = await axios.post(
+          'http://apbook-sv-e4eah7gsdda6a7cf.southeastasia-01.azurewebsites.net/auth/refresh',
+          {
+            refresh_token: refreshToken,
+          }
+        );
 
         accessToken = res.data.access_token;
         localStorage.setItem('accessToken', accessToken!);

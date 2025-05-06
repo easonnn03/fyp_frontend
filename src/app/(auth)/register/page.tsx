@@ -44,7 +44,7 @@ export default function RegisterPage() {
 
         {/*Call API and send requests*/ }
         try {
-            await axios.post('http://localhost:3001/auth/register', {
+            await axios.post('http://apbook-sv-e4eah7gsdda6a7cf.southeastasia-01.azurewebsites.net/auth/register', {
                 tpNumber: `TP${tpNumber}`,
                 username,
                 email,
