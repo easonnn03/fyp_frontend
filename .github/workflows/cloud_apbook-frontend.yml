@@ -29,6 +29,13 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
+      - name: Confirm .next folder was created
+        run: |
+          echo "Current path: $(pwd)"
+          ls -la
+          echo "Contents of .next (if exists):"
+          ls -la .next || echo ".next not found"
+
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
 
@@ -56,7 +63,7 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -71,4 +78,3 @@ jobs:
           app-name: 'apbook-frontend'
           slot-name: 'Production'
           package: .
-          
