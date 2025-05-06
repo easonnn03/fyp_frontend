@@ -29,8 +29,8 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      - name: Check if Next CLI is present
-        run: ls -la node_modules/.bin | grep next
+      - name: Check tarball content
+        run: tar -tzf node_modules.tar.gz | grep next
 
       - name: Zip artifact for deployment
         run: zip -r release.zip .next public node_modules package.json package-lock.json
